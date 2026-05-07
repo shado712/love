@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى جنّتي .. أمي</title>
+    <style>
+        :root { --gold: #d4af37; --deep-red: #800020; --pink: #ffb6c1; }
+        body { 
+            background: #000; margin: 0; font-family: 'Cairo', sans-serif; 
+            display: flex; align-items: center; justify-content: center; 
+            height: 100vh; overflow: hidden; color: white;
+        }
+
+        /* القلوب المتحركة في الخلفية */
+        .hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .heart { position: absolute; color: rgba(255, 182, 193, 0.4); animation: fall linear infinite; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* حاوية المحتوى */
+        .container { 
+            position: relative; z-index: 10; background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(15px); padding: 40px; border-radius: 50px; 
+            border: 2px solid var(--gold); width: 85%; max-width: 450px; 
+            text-align: center; box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .mom-img { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--gold); margin-bottom: 20px; object-fit: cover; animation: pulse 3s infinite; }
+        
+        h1 { color: var(--gold); font-size: 26px; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        p { font-size: 18px; line-height: 1.8; color: #fff; min-height: 100px; transition: 0.5s; }
+
+        .btn { 
+            background: linear-gradient(45deg, var(--gold), #f9e29c); color: #000; 
+            border: none; padding: 15px 30px; border-radius: 30px; font-size: 18px; 
+            font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px; width: 100%;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0
