@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ماريه وحيدر</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Cairo", sans-serif;
+    }
+
+    body{
+      background:#000;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      overflow:hidden;
+    }
+
+    .chat-box{
+      width:380px;
+      background:#050816;
+      border-radius:30px;
+      padding:20px;
+      box-shadow:0 0 30px rgba(106,90,255,0.3);
+      animation:fadeIn 1.2s ease;
+    }
+
+    .msg{
+      max-width:80%;
+      padding:14px 18px;
+      margin:12px 0;
+      border-radius:25px;
+      font-size:22px;
+      color:white;
+      line-height:1.6;
+      animation:slideUp .7s ease;
+    }
+
+    .left{
+      background:#0f1228;
+      border:2px solid rgba(120,120,255,.2);
+      margin-right:auto;
+    }
+
+    .right{
+      background:#2c2c2c;
+      margin-left:auto;
+    }
+
+    .new-msg{
+      text-align:center;
+      color:#aaa;
+      margin:20px 0;
+      font-size:20px;
+      position:relative;
+    }
+
+    .new-msg::before,
+    .new-msg::after{
+      content:"";
+      position:absolute;
+      top:50%;
+      width:30%;
+      height:1px;
+      background:#666;
+    }
+
+    .new-msg::before{
+      right:0;
+    }
+
+    .new-msg::after{
+      left:0;
+    }
+
+    .link-box{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:#080b18;
+      border:2px solid rgba(120,120,255,.2);
+      border-radius:25px;
+      padding:14px 18px;
+      margin-top:15px;
+      color:#8d7bff;
+      font-size:20px;
+    }
+
+    .send-btn{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:#2f2f2f;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      font-size:24px;
+      margin-right:10px;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:scale(.9);
+      }
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    @keyframes slideUp{
+      from{
+        opacity:0;
+        transform:translateY(30px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-box">
+
+    <div class="msg left">
+      حيدر عندي هدية الج كلش راح تحبيها 💜
+    </div>
+
+    <div class="msg right">
+      الله شنو هي؟ 🌚
+    </div>
+
+    <div class="new-msg">New Messages</div>
+
+    <div class="link-box">
+      <span>🔗 https://marie-haider.app</span>
+      <div class="send-btn">➤</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
