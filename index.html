@@ -13,7 +13,7 @@
             height: 100vh; overflow: hidden; color: var(--white);
         }
 
-        /* تكثيف المؤثرات المتحركة */
+        /* تكثيف المؤثرات المتحركة في الخلفية */
         .rain { position: fixed; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .drop { position: absolute; animation: fall linear infinite; filter: drop-shadow(0 0 5px var(--gold)); }
         @keyframes fall {
@@ -29,9 +29,19 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .sticker { width: 130px; height: 130px; margin-bottom: 15px; transition: 0.5s; }
-        h1 { color: var(--gold); font-size: 24px; margin-bottom: 10px; }
-        p { font-size: 17px; line-height: 1.7; min-height: 120px; margin-bottom: 20px; }
+        /* الإطار الأبيض حول الصورة */
+        .img-container {
+            width: 130px; height: 130px; margin: 0 auto 15px auto;
+            border-radius: 50%; border: 3px solid #fff; /* إطار أبيض */
+            overflow: hidden; /* لقص الصورة بشكل دائري */
+            display: flex; align-items: center; justify-content: center;
+            background: #fff; /* خلفية بيضاء للإطار */
+            box-shadow: 0 0 15px rgba(255,255,255,0.5); /* لمعان أبيض */
+        }
+        .sticker { width: 100%; height: 100%; object-fit: cover; } /* جعل الصورة تملأ الإطار */
+
+        h1 { color: var(--gold); font-size: 24px; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        p { font-size: 17px; line-height: 1.7; min-height: 120px; margin-bottom: 20px; font-weight: 600; color: #eee; }
 
         .progress-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-bottom: 20px; }
         .progress-bar { width: 10%; height: 100%; background: var(--gold); border-radius: 10px; transition: 0.4s; }
@@ -39,8 +49,9 @@
         .btn { 
             background: var(--gold); color: black; border: none; padding: 15px; 
             border-radius: 25px; width: 100%; font-size: 18px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3); transition: 0.3s;
         }
+        .btn:hover { background: #fff; transform: scale(1.02); }
     </style>
 </head>
 <body>
@@ -48,7 +59,10 @@
     <div class="rain" id="rain"></div>
 
     <div class="card">
-        <img src="https://media.tenor.com/OnY_qNqE4p8AAAAi/hello-kitty-shy.gif" class="sticker" id="img">
+        <div class="img-container">
+            <img src="https://media.tenor.com/OnY_qNqE4p8AAAAi/hello-kitty-shy.gif" class="sticker" id="img">
+        </div>
+        
         <h1 id="title">يا هلا برقوية ✨</h1>
         <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
         <p id="text">رقية، هذا الموقع سواه الج حيدر.. حتى يذكرج انج ذكية وبطلة والثالث متوسط انتي كدها وأكثر!</p>
@@ -56,7 +70,7 @@
     </div>
 
     <script>
-        // صنع مطر من أيقونات الدراسة
+        // مطر من أيقونات الدراسة المتحركة في الخلفية
         const icons = ['📚', '✍️', '🎓', '💡', '📝', '✨', '📖', '🏆', '📒', '✏️'];
         function createRain() {
             const d = document.createElement('div');
@@ -72,16 +86,26 @@
 
         let step = 0;
         const pages = [
-            { t: "أول خطوة للنجاح", p: "رقية، الثالث هو بوابتج للإعدادية ولأحلامج الكبيرة. لا تخلين الخوف يوكف بوجهج، أنتي أقوى من الكتاب!", s: "https://media.tenor.com/vH97Zf_9680AAAAi/hello-kitty-flower.gif", b: "20%" },
-            { t: "تعبج مراح يضيع", p: "كل كلمة تقريها هسة، هي استثمار لمستقبلج. الله يشوف تعبج وراح يجازيج بأحلى معدل يفرح كلبج.", s: "https://media.tenor.com/K_f9_9Obeo0AAAAi/hello-kitty-blushing.gif", b: "30%" },
-            { t: "فخر العائلة", p: "تخيلي يوم النتائج، والكل يبارك الج.. دموع الفرح بعين أهلج تسوى الدنيا وما بيها. إحنا كلنا ننتظرج!", s: "https://media.tenor.com/j_6W_Xq-S0AAAAAi/hello-kitty-sanrio.gif", b: "40%" },
-            { t: "انتي ذكية!", p: "مو أي وحدة توصل للثالث وتجتهد مثلج. رقية، عقلج ذهب بس يحتاج شوية تركيز واصرار.", s: "https://media.tenor.com/OnY_qNqE4p8AAAAi/hello-kitty-shy.gif", b: "50%" },
+            // صفحة 1: شخصية تدرس بتركيز
+            { t: "أول خطوة للنجاح", p: "رقية، الثالث هو بوابتج للإعدادية ولأحلامج الكبيرة. لا تخلين الخوف يوكف بوجهج، أنتي أقوى من الكتاب!", s: "https://media.tenor.com/b9UaH8B6_OQAAAAi/mochi-peach.gif", b: "20%" },
+            // صفحة 2: شخصية تدرس بجد
+            { t: "تعبج مراح يضيع", p: "كل كلمة تقريها هسة، هي استثمار لمستقبلج. الله يشوف تعبج وراح يجازيج بأحلى معدل يفرح كلبج.", s: "https://media.tenor.com/OnvS5O4Vn4AAAAAi/study-busy.gif", b: "30%" },
+            // صفحة 3: شخصية تحتفل بالدراسة
+            { t: "فخر العائلة", p: "تخيلي يوم النتائج، والكل يبارك الج.. دموع الفرح بعين أهلج تسوى الدنيا وما بيها. إحنا كلنا ننتظرج!", s: "https://media.tenor.com/L4l6j6q_0SAAAAAi/cute-rabbit.gif", b: "40%" },
+            // صفحة 4: شخصية ذكية
+            { t: "انتي ذكية!", p: "مو أي وحدة توصل للثالث وتجتهد مثلج. رقية، عقلج ذهب بس يحتاج شوية تركيز واصرار.", s: "https://media.tenor.com/b4Vw5S4O8s8AAAAi/smart-reading.gif", b: "50%" },
+            // صفحة 5: شخصية تشعر بالحب والدعم
             { t: "حيدر وياج دوم", p: "لو شكد ما جانت المادة صعبة، تذكري اني موجود واسندج. ادرسي وسوي اللي عليج والباقي على رب العالمين.", s: "https://media.tenor.com/V7_5zWv-A60AAAAi/hello-kitty-love.gif", b: "60%" },
-            { t: "وقت الجد", p: "هانت يا بطلة، ما بقى شي وتخلص الامتحانات وتبدي أحلى عطلة وانتي ناجحة ورافع راسنا.", s: "https://media.tenor.com/2m_SAnzXvYgAAAAi/hello-kitty-jet-plane.gif", b: "70%" },
-            { t: "احلمي براحتج", p: "تردين تصيرين دكتورة؟ مهندسة؟ محامية؟ كل هالأحلام تبدأ من ورقة وقلم هسة. ادرسي لحلمج!", s: "https://media.tenor.com/vH97Zf_9680AAAAi/hello-kitty-flower.gif", b: "80%" },
-            { t: "وعد للنجاح؟", p: "أريد منج وعد يا رقية، انو متبجين من مادة صعبة، بل تحاولين مرة ومرتين لحد ما تسيطرين عليها.", s: "https://media.tenor.com/K_f9_9Obeo0AAAAi/hello-kitty-blushing.gif", b: "90%" },
+            // صفحة 6: شخصية مندفعة للعمل
+            { t: "وقت الجد", p: "هانت يا بطلة، ما بقى شي وتخلص الامتحانات وتبدي أحلى عطلة وانتي ناجحة ورافع راسنا.", s: "https://media.tenor.com/A6_L6R5v_OAAAAAi/cat-working.gif", b: "70%" },
+            // صفحة 7: شخصية تحلم بالمستقبل
+            { t: "احلمي براحتج", p: "تردين تصيرين دكتورة؟ مهندسة؟ محامية؟ كل هالأحلام تبدأ من ورقة وقلم هسة. ادرسي لحلمج!", s: "https://media.tenor.com/K_f9_9Obeo0AAAAi/hello-kitty-blushing.gif", b: "80%" },
+            // صفحة 8: شخصية تعاهد على النجاح
+            { t: "وعد للنجاح؟", p: "أريد منج وعد يا رقية، انو متبجين من مادة صعبة، بل تحاولين مرة ومرتين لحد ما تسيطرين عليها.", s: "https://media.tenor.com/R3K98H6pU1EAAAAi/cute-rabbit.gif", b: "90%" },
+            // صفحة 9: شخصية تصل للقمة
             { t: "القمة تنتظرج", p: "رقية ما ترضى بس بالنجاح، رقية ترضى بالامتياز! يلا يا بطلة، شدي الحيل بكل قوتج.", s: "https://media.tenor.com/j_6W_Xq-S0AAAAAi/hello-kitty-sanrio.gif", b: "95%" },
-            { t: "كلمة أخيرة", p: "أحبج يا أختي الصغيرة، ومنتظر أشوفج أحسن وحدة بالدنيا. روحي هسة ادرسي وبشرينا بالإبداع! ❤️", s: "https://media.tenor.com/OnY_qNqE4p8AAAAi/hello-kitty-shy.gif", b: "100%" }
+            // صفحة 10: شخصية فخورة
+            { t: "كلمة أخيرة", p: "أحبج يا أختي الصغيرة، ومنتظر أشوفج أحسن وحدة بالدنيا. روحي هسة ادرسي وبشرينا بالإبداع! ❤️", s: "https://media.tenor.com/2m_SAnzXvYgAAAAi/hello-kitty-jet-plane.gif", b: "100%" }
         ];
 
         function nextPage() {
@@ -95,7 +119,7 @@
             } else {
                 document.getElementById('text').innerHTML = "كافي نت يا رقية! <br> الكتاب يصيحج هسة.. روحي ادرسي! ❤️🎓";
                 document.getElementById('btn').style.display = 'none';
-                document.getElementById('img').src = "https://media.tenor.com/V7_5zWv-A60AAAAi/hello-kitty-love.gif";
+                document.getElementById('img').src = "https://media.tenor.com/b9UaH8B6_OQAAAAi/mochi-peach.gif"; // صورة ختامية
             }
         }
     </script>
